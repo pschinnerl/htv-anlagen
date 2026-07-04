@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import htvLogo from "./assets/Logo2025.png";
 import { db } from "./firebase";
 import { collection, doc, onSnapshot, setDoc, deleteDoc, writeBatch } from "firebase/firestore";
 
@@ -37,10 +38,10 @@ function saveKat(key, val) {
 
 // ─── SEED DATA ────────────────────────────────────────────────────────────────
 const SEED_ANLAGEN = [
-  { id: "1", name: "Hunter Pro-C Bewässerungssteuerung", kategorie: "bewaesserung", standort: "Technikraum Vereinshaus", hersteller: "Hunter Industries", modell: "Pro-C 12-Station", seriennummer: "SN-20230412", kaufdatum: "2023-04-12", garantieBis: "2026-04-12", beschreibung: "Hauptsteuerung für alle 6 Beregnungskreise der Tennisplätze", kontakte: [{ name: "Frieseke Platzbewässerung", telefon: "05136 894546", email: "", rolle: "Wartung Saisonbeginn/-ende" }], dokumente: [], wartungen: [{ id: "w1", bezeichnung: "Jahresinspektion", intervallMonate: 12, letzteDurchfuehrung: "2024-04-10", naechsteFaelligkeit: "2025-04-10", zustaendig: "Frieseke", notizen: "" }], stoerungen: [] },
-  { id: "2", name: "Hebepumpenanlage Keller", kategorie: "hebepumpe", standort: "Keller Vereinshaus", hersteller: "Grundfos", modell: "Multilift M.15.1.4", seriennummer: "GF-2021-0987", kaufdatum: "2021-09-01", garantieBis: "2024-09-01", beschreibung: "Abwasser-Hebepumpe für Sanitäranlagen Untergeschoss", kontakte: [{ name: "PBA Pumpen", telefon: "05351 536200", email: "", rolle: "Wartung Hebeanlage" }], dokumente: [], wartungen: [{ id: "w3", bezeichnung: "Halbjahreswartung", intervallMonate: 6, letzteDurchfuehrung: "2024-09-15", naechsteFaelligkeit: "2025-03-15", zustaendig: "PBA Pumpen", notizen: "" }], stoerungen: [] },
-  { id: "3", name: "Brandmeldeanlage", kategorie: "brandmeldeanlage", standort: "Vereinshaus gesamt", hersteller: "Bosch", modell: "FPA-5000", seriennummer: "BMA-2020-1122", kaufdatum: "2020-01-15", garantieBis: "2023-01-15", beschreibung: "Zentrale Brandmeldeanlage mit 24 Meldern", kontakte: [{ name: "Scholz (Harms)", telefon: "05351 2565260", email: "", rolle: "Installation & Wartung" }], dokumente: [], wartungen: [{ id: "w4", bezeichnung: "Jahresprüfung (Pflicht)", intervallMonate: 12, letzteDurchfuehrung: "2024-01-20", naechsteFaelligkeit: "2025-01-20", zustaendig: "Scholz", notizen: "VdS-konform" }], stoerungen: [] },
-  { id: "4", name: "Fettabscheider Gaststätte", kategorie: "fettabscheider", standort: "Außenbereich Gaststätte", hersteller: "Kessel", modell: "Lipumax", seriennummer: "", kaufdatum: "", garantieBis: "", beschreibung: "Fettabscheider für Küche der Gaststätte", kontakte: [{ name: "Michael Obst (Onyx-Veolia)", telefon: "+49 1607472896", email: "", rolle: "Entleerung" }], dokumente: [], wartungen: [{ id: "w6", bezeichnung: "Entleerung", intervallMonate: 3, letzteDurchfuehrung: "2025-01-10", naechsteFaelligkeit: "2025-04-10", zustaendig: "Onyx-Veolia", notizen: "" }], stoerungen: [] },
+  { id: "1", name: "Hunter Pro-C Bewässerungssteuerung", kategorie: "bewaesserung", standort: "Technikraum Vereinshaus", hersteller: "Hunter Industries", modell: "Pro-C 12-Station", seriennummer: "SN-20230412", kaufdatum: "2023-04-12", garantieBis: "2026-04-12", beschreibung: "Hauptsteuerung für alle 6 Beregnungskreise der Tennisplätze", kontakte: [{ name: "Frieseke Platzbewässerung", telefon: "05136 894546", email: "", rolle: "Wartung Saisonbeginn/-ende" }], dokumente: [], wartungen: [{ id: "w1", bezeichnung: "Jahresinspektion", intervallMonate: 12, letzteDurchfuehrung: "2024-04-10", naechsteFaelligkeit: "2025-04-10", zustaendig: "Frieseke", notizen: "" }], aufgaben: [], stoerungen: [] },
+  { id: "2", name: "Hebepumpenanlage Keller", kategorie: "hebepumpe", standort: "Keller Vereinshaus", hersteller: "Grundfos", modell: "Multilift M.15.1.4", seriennummer: "GF-2021-0987", kaufdatum: "2021-09-01", garantieBis: "2024-09-01", beschreibung: "Abwasser-Hebepumpe für Sanitäranlagen Untergeschoss", kontakte: [{ name: "PBA Pumpen", telefon: "05351 536200", email: "", rolle: "Wartung Hebeanlage" }], dokumente: [], wartungen: [{ id: "w3", bezeichnung: "Halbjahreswartung", intervallMonate: 6, letzteDurchfuehrung: "2024-09-15", naechsteFaelligkeit: "2025-03-15", zustaendig: "PBA Pumpen", notizen: "" }], aufgaben: [], stoerungen: [] },
+  { id: "3", name: "Brandmeldeanlage", kategorie: "brandmeldeanlage", standort: "Vereinshaus gesamt", hersteller: "Bosch", modell: "FPA-5000", seriennummer: "BMA-2020-1122", kaufdatum: "2020-01-15", garantieBis: "2023-01-15", beschreibung: "Zentrale Brandmeldeanlage mit 24 Meldern", kontakte: [{ name: "Scholz (Harms)", telefon: "05351 2565260", email: "", rolle: "Installation & Wartung" }], dokumente: [], wartungen: [{ id: "w4", bezeichnung: "Jahresprüfung (Pflicht)", intervallMonate: 12, letzteDurchfuehrung: "2024-01-20", naechsteFaelligkeit: "2025-01-20", zustaendig: "Scholz", notizen: "VdS-konform" }], aufgaben: [], stoerungen: [] },
+  { id: "4", name: "Fettabscheider Gaststätte", kategorie: "fettabscheider", standort: "Außenbereich Gaststätte", hersteller: "Kessel", modell: "Lipumax", seriennummer: "", kaufdatum: "", garantieBis: "", beschreibung: "Fettabscheider für Küche der Gaststätte", kontakte: [{ name: "Michael Obst (Onyx-Veolia)", telefon: "+49 1607472896", email: "", rolle: "Entleerung" }], dokumente: [], wartungen: [{ id: "w6", bezeichnung: "Entleerung", intervallMonate: 3, letzteDurchfuehrung: "2025-01-10", naechsteFaelligkeit: "2025-04-10", zustaendig: "Onyx-Veolia", notizen: "" }], aufgaben: [], stoerungen: [] },
 ];
 const SEED_TELEFON = [
   { id: "t1", kategorie: "HTV", position: "1. Vorsitzender", name: "Peter Schinnerling", handy: "0151 28099490", privat: "6771", firma: "", email: "", bemerkungen: "" },
@@ -110,6 +111,17 @@ const SEED_JAHRESAUFGABEN = [
 // ─── HELPERS ──────────────────────────────────────────────────────────────────
 function tageFaellig(d) { if (!d) return null; return Math.round((new Date(d) - new Date()) / 86400000); }
 function formatDate(s) { return s ? new Date(s).toLocaleDateString("de-DE") : "–"; }
+function berechneNaechsteWartung(letzteDurchfuehrung, intervallMonate) {
+  if (!letzteDurchfuehrung || !intervallMonate) return null;
+  const d = new Date(letzteDurchfuehrung);
+  d.setMonth(d.getMonth() + parseInt(intervallMonate));
+  return d;
+}
+function formatMonatJahr(d) {
+  if (!d) return "–";
+  const date = d instanceof Date ? d : new Date(d);
+  return date.toLocaleDateString("de-DE", { month: "long", year: "numeric" });
+}
 function statusColor(t) { if (t === null) return "#666"; if (t < 0) return "#dc2626"; if (t <= 30) return "#d97706"; return "#16a34a"; }
 function statusLabel(t) { if (t === null) return "–"; if (t < 0) return `${Math.abs(t)}d überfällig`; if (t === 0) return "Heute"; return `in ${t}d`; }
 function newId() { return Math.random().toString(36).slice(2, 10); }
@@ -147,15 +159,15 @@ const I = ({ n, s = 16 }) => {
 const css = `
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  :root{--bg:#f0f7f0;--sf:#ffffff;--sf2:#f4f9f4;--sf3:#e8f2e8;--bd:#d1e8d1;--bd2:#a8d4a8;--ac:#2d7d32;--ac2:#388e3c;--gr:#16a34a;--am:#d97706;--rd:#dc2626;--tx:#1a2e1a;--tx2:#4a6741;--tx3:#7a9b77;--r:10px;--r2:6px;--sh:0 1px 3px rgba(0,0,0,.08)}
+  :root{--bg:#f0f4f8;--sf:#ffffff;--sf2:#f4f7fb;--sf3:#e8eff5;--bd:#c8d9eb;--bd2:#93b4d4;--ac:#1565c0;--ac2:#1976d2;--gr:#16a34a;--am:#d97706;--rd:#dc2626;--tx:#1a2233;--tx2:#3a4e6a;--tx3:#6a7d92;--r:10px;--r2:6px;--sh:0 1px 3px rgba(0,0,0,.08)}
   body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--tx);font-size:14px}
   .app{display:flex;height:100vh;overflow:hidden}
-  .sidebar{width:225px;min-width:225px;background:#1a3a1a;display:flex;flex-direction:column;overflow-y:auto;box-shadow:2px 0 8px rgba(0,0,0,.15)}
-  .s-logo{padding:20px 16px 16px;border-bottom:1px solid rgba(255,255,255,.1);font-weight:700;font-size:15px;color:#fff}
-  .s-logo span{color:#81c784}.s-logo small{display:block;font-size:11px;font-weight:400;color:rgba(255,255,255,.5);margin-top:2px}
+  .sidebar{width:225px;min-width:225px;background:#0f2044;display:flex;flex-direction:column;overflow-y:auto;box-shadow:2px 0 8px rgba(0,0,0,.15)}
+  .s-logo{padding:16px 16px 14px;border-bottom:1px solid rgba(255,255,255,.1);font-weight:700;font-size:15px;color:#fff;display:flex;align-items:center}
+  .s-logo span{color:#7eb3e0}.s-logo small{display:block;font-size:11px;font-weight:400;color:rgba(255,255,255,.5);margin-top:2px}
   .s-sec{padding:12px 8px 4px;font-size:10px;font-weight:600;letter-spacing:.8px;color:rgba(255,255,255,.4);text-transform:uppercase}
   .s-item{display:flex;align-items:center;gap:8px;padding:8px 10px;margin:1px 4px;border-radius:var(--r2);cursor:pointer;transition:all .15s;color:rgba(255,255,255,.7);font-size:13px}
-  .s-item:hover{background:rgba(255,255,255,.1);color:#fff}.s-item.on{background:#2d7d32;color:#fff}
+  .s-item:hover{background:rgba(255,255,255,.1);color:#fff}.s-item.on{background:#1565c0;color:#fff}
   .s-item .bdg{margin-left:auto;background:#dc2626;color:#fff;font-size:10px;padding:1px 5px;border-radius:10px;font-weight:600}
   .main{flex:1;overflow-y:auto;display:flex;flex-direction:column}
   .topbar{padding:14px 24px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px;background:var(--sf);position:sticky;top:0;z-index:10;box-shadow:var(--sh)}
@@ -182,7 +194,7 @@ const css = `
   th{text-align:left;padding:8px 12px;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--tx3);border-bottom:2px solid var(--bd);background:var(--sf2)}
   td{padding:10px 12px;border-bottom:1px solid var(--bd);color:var(--tx2);vertical-align:top}tr:last-child td{border-bottom:none}tr:hover td{background:var(--sf2);color:var(--tx)}
   .btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--r2);border:none;cursor:pointer;font-family:inherit;font-size:13px;font-weight:500;transition:all .15s;text-decoration:none}
-  .bp{background:var(--ac);color:#fff}.bp:hover{background:#1b5e20}
+  .bp{background:var(--ac);color:#fff}.bp:hover{background:#0d47a1}
   .bg{background:#fff;color:var(--tx2);border:1px solid var(--bd)}.bg:hover{background:var(--sf2);color:var(--tx)}
   .bd{background:#fff;color:var(--rd);border:1px solid #fca5a5}.bd:hover{background:#fef2f2}
   .bs{padding:4px 10px;font-size:12px}.bi{padding:6px}
@@ -194,7 +206,7 @@ const css = `
   .fi{display:flex;flex-direction:column;gap:5px}.fi.fu{grid-column:1/-1}
   .fi label{font-size:12px;font-weight:500;color:var(--tx2)}
   .fi input,.fi select,.fi textarea{background:#f4f9f4;border:1px solid var(--bd);border-radius:var(--r2);color:var(--tx);padding:8px 10px;font-family:inherit;font-size:13px;outline:none;transition:border-color .15s}
-  .fi input:focus,.fi select:focus,.fi textarea:focus{border-color:var(--ac);box-shadow:0 0 0 3px rgba(45,125,50,.1)}
+  .fi input:focus,.fi select:focus,.fi textarea:focus{border-color:var(--ac);box-shadow:0 0 0 3px rgba(21,101,192,.1)}
   .fi select option{background:#fff}.fi textarea{resize:vertical;min-height:70px}
   .sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:24px}
   .sc{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:16px;box-shadow:var(--sh)}
@@ -218,7 +230,16 @@ const css = `
   .zg{background:#f0fdf4;color:#166534;border:1px solid #bbf7d0}.zw{background:#fffbeb;color:#92400e;border:1px solid #fde68a}.zd{background:#fef2f2;color:var(--rd);border:1px solid #fca5a5}
   .loading{display:flex;align-items:center;justify-content:center;height:100vh;flex-direction:column;gap:12px;color:var(--tx2);background:var(--bg)}
   .spin{animation:spin 1s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-  .sync-badge{display:flex;align-items:center;gap:5px;font-size:11px;color:#166534;padding:3px 8px;border-radius:20px;background:#f0fdf4;border:1px solid #bbf7d0}
+  .sync-badge{display:flex;align-items:center;gap:5px;font-size:11px;color:#1565c0;padding:3px 8px;border-radius:20px;background:#e8f0fb;border:1px solid #93b4d4}
+  .mob-hd{display:none;align-items:center;gap:12px;padding:14px 16px;background:#0f2044;color:#fff;position:sticky;top:0;z-index:20;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+  .mob-back-btn,.mob-menu-btn{background:rgba(255,255,255,.12);border:none;color:#fff;border-radius:8px;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;-webkit-tap-highlight-color:transparent}
+  .mob-nav-ov{position:fixed;inset:0;background:#0f2044;z-index:200;overflow-y:auto}
+  .mob-nav-hd{padding:24px 16px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.1)}
+  .mob-nav-sec{padding:16px 16px 6px;font-size:10px;font-weight:600;letter-spacing:.8px;color:rgba(255,255,255,.4);text-transform:uppercase}
+  .mob-nav-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:8px 16px}
+  .mob-nav-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:var(--r);padding:14px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:5px;text-align:center;transition:background .15s;-webkit-tap-highlight-color:transparent}
+  .mob-nav-card:active{background:rgba(255,255,255,.18)}.mnc-on{background:#1565c0!important;border-color:#1976d2!important}
+  @media(max-width:768px){.sidebar{display:none!important}.mob-hd{display:flex!important}.topbar{display:none!important}.content{padding:14px}.cg{grid-template-columns:1fr!important}.fg{grid-template-columns:1fr!important}.ig{grid-template-columns:1fr!important}.sg{grid-template-columns:1fr 1fr!important}.md{padding:16px!important}.tw{font-size:12px}}
   .todo-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--bd)}.todo-item:last-child{border-bottom:none}
   .todo-cb{width:18px;height:18px;border-radius:4px;border:2px solid var(--bd2);background:#fff;cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
   .todo-cb.done{background:var(--gr);border-color:var(--gr)}
@@ -250,8 +271,9 @@ function Tabs({ tabs, active, onChange }) {
 }
 
 // ─── SHARED FORMS ─────────────────────────────────────────────────────────────
-function WartungForm({ onSave, onClose }) {
-  const [f, setF] = useState({ bezeichnung:"", intervallMonate:12, letzteDurchfuehrung:"", naechsteFaelligkeit:"", zustaendig:"", notizen:"" });
+function WartungForm({ onSave, onClose, initial }) {
+  const def = { bezeichnung:"", intervallMonate:12, letzteDurchfuehrung:"", naechsteFaelligkeit:"", zustaendig:"", notizen:"" };
+  const [f, setF] = useState(initial ? {...initial} : def);
   const s = k => e => setF(p => ({ ...p, [k]: e.target.value }));
   return (<><div className="fg"><div className="fi fu"><label>Bezeichnung</label><input value={f.bezeichnung} onChange={s("bezeichnung")}/></div><div className="fi"><label>Intervall (Monate)</label><input type="number" value={f.intervallMonate} onChange={s("intervallMonate")}/></div><div className="fi"><label>Zuständig</label><input value={f.zustaendig} onChange={s("zustaendig")}/></div><div className="fi"><label>Letzte Durchführung</label><input type="date" value={f.letzteDurchfuehrung} onChange={s("letzteDurchfuehrung")}/></div><div className="fi"><label>Nächste Fälligkeit</label><input type="date" value={f.naechsteFaelligkeit} onChange={s("naechsteFaelligkeit")}/></div><div className="fi fu"><label>Notizen</label><textarea value={f.notizen} onChange={s("notizen")}/></div></div><div className="ma"><button className="btn bg" onClick={onClose}>Abbrechen</button><button className="btn bp" onClick={() => f.bezeichnung && onSave(f)}>Speichern</button></div></>);
 }
@@ -263,16 +285,28 @@ function StoerungForm({ onSave, onClose }) {
 function DokumentForm({ onSave, onClose }) {
   const [f, setF] = useState({ name:"", url:"", typ:"Anleitung" });
   const s = k => e => setF(p => ({ ...p, [k]: e.target.value }));
-  return (<><div className="fg"><div className="fi fu"><label>Bezeichnung</label><input value={f.name} onChange={s("name")}/></div><div className="fi"><label>Typ</label><select value={f.typ} onChange={s("typ")}>{["Anleitung","Prüfbericht","Protokoll","Vertrag","Laufkarte","Sonstiges"].map(t=><option key={t}>{t}</option>)}</select></div><div className="fi fu"><label>SharePoint / OneDrive URL</label><input value={f.url} onChange={s("url")} placeholder="https://..."/></div></div><div className="ma"><button className="btn bg" onClick={onClose}>Abbrechen</button><button className="btn bp" onClick={() => f.name && f.url && onSave(f)}>Speichern</button></div></>);
+  return (<><div className="fg"><div className="fi fu"><label>Bezeichnung</label><input value={f.name} onChange={s("name")}/></div><div className="fi"><label>Typ</label><select value={f.typ} onChange={s("typ")}>{["Anleitung","Prüfbericht","Protokoll","Vertrag","Laufkarte","Sonstiges"].map(t=><option key={t}>{t}</option>)}</select></div><div className="fi fu"><label>Google Drive URL</label><input value={f.url} onChange={s("url")} placeholder="https://..."/></div></div><div className="ma"><button className="btn bg" onClick={onClose}>Abbrechen</button><button className="btn bp" onClick={() => f.name && f.url && onSave(f)}>Speichern</button></div></>);
 }
 function KontaktForm({ onSave, onClose }) {
   const [f, setF] = useState({ name:"", rolle:"", telefon:"", email:"" });
   const s = k => e => setF(p => ({ ...p, [k]: e.target.value }));
   return (<><div className="fg"><div className="fi fu"><label>Name / Firma</label><input value={f.name} onChange={s("name")}/></div><div className="fi fu"><label>Rolle</label><input value={f.rolle} onChange={s("rolle")}/></div><div className="fi"><label>Telefon</label><input value={f.telefon} onChange={s("telefon")}/></div><div className="fi"><label>E-Mail</label><input value={f.email} onChange={s("email")}/></div></div><div className="ma"><button className="btn bg" onClick={onClose}>Abbrechen</button><button className="btn bp" onClick={() => f.name && onSave(f)}>Speichern</button></div></>);
 }
-function WartungCard({ w, onDone, onDelete }) {
-  const t = tageFaellig(w.naechsteFaelligkeit);
-  return (<div className="card" style={{marginBottom:10}}><div style={{display:"flex",gap:10}}><div style={{flex:1}}><div style={{fontWeight:600,marginBottom:4}}>{w.bezeichnung}</div><div style={{fontSize:12,color:"var(--tx3)",marginBottom:6}}>Alle {w.intervallMonate} Monate · {w.zustaendig||"–"}</div><div style={{display:"flex",gap:16,fontSize:12,flexWrap:"wrap"}}><span>Zuletzt: <b style={{color:"var(--tx)"}}>{formatDate(w.letzteDurchfuehrung)}</b></span><span style={{color:statusColor(t)}}>Nächste: <b>{formatDate(w.naechsteFaelligkeit)}</b> ({statusLabel(t)})</span></div>{w.notizen&&<div style={{fontSize:12,color:"var(--tx3)",marginTop:4}}>{w.notizen}</div>}</div><div style={{display:"flex",gap:4}}><button className="btn bg bs bi" onClick={onDone}><I n="check" s={13}/></button><button className="btn bd bs bi" onClick={onDelete}><I n="trash" s={13}/></button></div></div></div>);
+function AufgabeForm({ onSave, onClose, initial }) {
+  const def = { titel:"", intervallMonate:null, letzteDurchfuehrung:"", zustaendig:"", notizen:"" };
+  const [f, setF] = useState(initial ? {...initial} : def);
+  const s = k => e => setF(p => ({ ...p, [k]: e.target.value }));
+  return (<><div className="fg"><div className="fi fu"><label>Aufgabe</label><input value={f.titel} onChange={s("titel")}/></div><div className="fi"><label>Intervall (Monate) oder leer für einmalig</label><input type="number" value={f.intervallMonate||""} onChange={e=>setF(p=>({...p,intervallMonate:e.target.value?parseInt(e.target.value):null}))}/></div><div className="fi"><label>Zuständig</label><input value={f.zustaendig} onChange={s("zustaendig")}/></div><div className="fi"><label>Letzte Ausführung</label><input type="date" value={f.letzteDurchfuehrung} onChange={s("letzteDurchfuehrung")}/></div><div className="fi fu"><label>Notizen</label><textarea value={f.notizen} onChange={s("notizen")}/></div></div><div className="ma"><button className="btn bg" onClick={onClose}>Abbrechen</button><button className="btn bp" onClick={() => f.titel && onSave(f)}>Speichern</button></div></>);
+}
+function WartungCard({ w, onDone, onEdit, onDelete }) {
+  const naechsteWartung = berechneNaechsteWartung(w.letzteDurchfuehrung, w.intervallMonate);
+  const t = naechsteWartung ? tageFaellig(naechsteWartung.toISOString().slice(0, 10)) : null;
+  return (<div className="card" style={{marginBottom:10}}><div style={{display:"flex",gap:10}}><div style={{flex:1}}><div style={{fontWeight:600,marginBottom:4}}>{w.bezeichnung}</div><div style={{fontSize:12,color:"var(--tx3)",marginBottom:6}}>Alle {w.intervallMonate} Monate · {w.zustaendig||"–"}</div><div style={{display:"flex",gap:16,fontSize:12,flexWrap:"wrap"}}><span>Zuletzt: <b style={{color:"var(--tx)"}}>{formatDate(w.letzteDurchfuehrung)}</b></span>{naechsteWartung&&<span style={{color:statusColor(t)}}>Nächste: <b>{formatMonatJahr(naechsteWartung)}</b> ({statusLabel(t)})</span>}</div>{w.notizen&&<div style={{fontSize:12,color:"var(--tx3)",marginTop:4}}>{w.notizen}</div>}</div><div style={{display:"flex",gap:4}}><button className="btn bg bs bi" onClick={onEdit}><I n="edit" s={13}/></button><button className="btn bg bs bi" onClick={onDone}><I n="check" s={13}/></button><button className="btn bd bs bi" onClick={onDelete}><I n="trash" s={13}/></button></div></div></div>);
+}
+function AufgabeCard({ a, onDone, onEdit, onDelete }) {
+  const naechsteAufgabe = a.intervallMonate ? berechneNaechsteWartung(a.letzteDurchfuehrung, a.intervallMonate) : null;
+  const t = naechsteAufgabe ? tageFaellig(naechsteAufgabe.toISOString().slice(0, 10)) : null;
+  return (<div className="card" style={{marginBottom:10}}><div style={{display:"flex",gap:10}}><div style={{flex:1}}><div style={{fontWeight:600,marginBottom:4}}>{a.titel}</div><div style={{fontSize:12,color:"var(--tx3)",marginBottom:6}}>{a.intervallMonate?`Alle ${a.intervallMonate} Monate`:"Einmalig"} · {a.zustaendig||"–"}</div><div style={{display:"flex",gap:16,fontSize:12,flexWrap:"wrap"}}>{a.letzteDurchfuehrung&&<span>Zuletzt: <b style={{color:"var(--tx)"}}>{formatDate(a.letzteDurchfuehrung)}</b></span>}{naechsteAufgabe&&<span style={{color:statusColor(t)}}>Nächste: <b>{formatMonatJahr(naechsteAufgabe)}</b> ({statusLabel(t)})</span>}</div>{a.notizen&&<div style={{fontSize:12,color:"var(--tx3)",marginTop:4}}>{a.notizen}</div>}</div><div style={{display:"flex",gap:4}}><button className="btn bg bs bi" onClick={onEdit}><I n="edit" s={13}/></button><button className="btn bg bs bi" onClick={onDone}><I n="check" s={13}/></button><button className="btn bd bs bi" onClick={onDelete}><I n="trash" s={13}/></button></div></div></div>);
 }
 
 // ─── KATEGORIE MANAGER ────────────────────────────────────────────────────────
@@ -314,11 +348,13 @@ function AnlageDetail({ anlage, anlagenKat, onUpdate, onDelete }) {
   const [tab, setTab] = useState("info");
   const [modal, setModal] = useState(null);
   const [editMode, setEditMode] = useState(false);
+  const [editWartung, setEditWartung] = useState(null);
+  const [editAufgabe, setEditAufgabe] = useState(null);
   function upd(c) { onUpdate({ ...anlage, ...c }); }
   const ki = anlagenKat.find(k=>k.id===anlage.kategorie);
 
   return (<div>
-    <Tabs active={tab} onChange={setTab} tabs={[{id:"info",label:"Info"},{id:"wartung",label:`Wartung (${anlage.wartungen.length})`},{id:"stoerung",label:`Störungen (${anlage.stoerungen.length})`},{id:"dokumente",label:`Dokumente (${anlage.dokumente.length})`},{id:"kontakte",label:`Kontakte (${anlage.kontakte.length})`}]}/>
+    <Tabs active={tab} onChange={setTab} tabs={[{id:"info",label:"Info"},{id:"wartung",label:`Wartung (${anlage.wartungen.length})`},{id:"aufgaben",label:`Aufgaben (${anlage.aufgaben?.length||0})`},{id:"stoerung",label:`Störungen (${anlage.stoerungen.length})`},{id:"dokumente",label:`Dokumente (${anlage.dokumente.length})`},{id:"kontakte",label:`Kontakte (${anlage.kontakte.length})`}]}/>
     {tab==="info"&&<div>
       <div style={{display:"flex",justifyContent:"flex-end",gap:8,marginBottom:16}}>
         <button className="btn bg bs" onClick={()=>setEditMode(true)}><I n="edit" s={13}/>Bearbeiten</button>
@@ -328,14 +364,18 @@ function AnlageDetail({ anlage, anlagenKat, onUpdate, onDelete }) {
       <div className="ig" style={{marginBottom:16}}>{[["Kategorie",ki?.label],["Standort",anlage.standort],["Hersteller",anlage.hersteller],["Modell",anlage.modell],["Seriennummer",anlage.seriennummer],["Kaufdatum",formatDate(anlage.kaufdatum)],["Garantie bis",formatDate(anlage.garantieBis)]].map(([l,v])=><div key={l} className="ii"><label>{l}</label><span>{v||"–"}</span></div>)}</div>
       {anlage.beschreibung&&<p style={{color:"var(--tx2)",fontSize:13}}>{anlage.beschreibung}</p>}
     </div>}
-    {tab==="wartung"&&<div><div style={{display:"flex",justifyContent:"flex-end",marginBottom:12}}><button className="btn bp bs" onClick={()=>setModal("wartung")}><I n="plus" s={13}/>Wartungsintervall</button></div>{anlage.wartungen.length===0&&<div className="es"><div>🔧</div>Keine Wartungen</div>}{anlage.wartungen.map(w=><WartungCard key={w.id} w={w} onDone={()=>{const d=prompt("Datum (YYYY-MM-DD):",new Date().toISOString().slice(0,10));if(d){const n=new Date(d);n.setMonth(n.getMonth()+w.intervallMonate);upd({wartungen:anlage.wartungen.map(x=>x.id===w.id?{...x,letzteDurchfuehrung:d,naechsteFaelligkeit:n.toISOString().slice(0,10)}:x)})}}} onDelete={()=>upd({wartungen:anlage.wartungen.filter(x=>x.id!==w.id)})}/>)}</div>}
+    {tab==="wartung"&&<div><div style={{display:"flex",justifyContent:"flex-end",marginBottom:12}}><button className="btn bp bs" onClick={()=>setModal("wartung")}><I n="plus" s={13}/>Wartungsintervall</button></div>{anlage.wartungen.length===0&&<div className="es"><div>🔧</div>Keine Wartungen</div>}{anlage.wartungen.map(w=><WartungCard key={w.id} w={w} onEdit={()=>setEditWartung(w)} onDone={()=>{const d=prompt("Datum (YYYY-MM-DD):",new Date().toISOString().slice(0,10));if(d){const n=new Date(d);n.setMonth(n.getMonth()+w.intervallMonate);upd({wartungen:anlage.wartungen.map(x=>x.id===w.id?{...x,letzteDurchfuehrung:d,naechsteFaelligkeit:n.toISOString().slice(0,10)}:x)})}}} onDelete={()=>upd({wartungen:anlage.wartungen.filter(x=>x.id!==w.id)})}/>)}</div>}
+    {tab==="aufgaben"&&<div><div style={{display:"flex",justifyContent:"flex-end",marginBottom:12}}><button className="btn bp bs" onClick={()=>setModal("aufgabe")}><I n="plus" s={13}/>Aufgabe</button></div>{!anlage.aufgaben||anlage.aufgaben.length===0&&<div className="es"><div>✓</div>Keine Aufgaben</div>}{anlage.aufgaben?.map(a=><AufgabeCard key={a.id} a={a} onEdit={()=>setEditAufgabe(a)} onDone={()=>{const d=prompt("Datum (YYYY-MM-DD):",new Date().toISOString().slice(0,10));if(d&&a.intervallMonate){const n=new Date(d);n.setMonth(n.getMonth()+a.intervallMonate);upd({aufgaben:anlage.aufgaben.map(x=>x.id===a.id?{...x,letzteDurchfuehrung:d}:x)})}else if(d){upd({aufgaben:anlage.aufgaben.map(x=>x.id===a.id?{...x,letzteDurchfuehrung:d}:x)})}}} onDelete={()=>upd({aufgaben:anlage.aufgaben.filter(x=>x.id!==a.id)})}/>)}</div>}
     {tab==="stoerung"&&<div><div style={{display:"flex",justifyContent:"flex-end",marginBottom:12}}><button className="btn bp bs" onClick={()=>setModal("stoerung")}><I n="plus" s={13}/>Störung</button></div>{anlage.stoerungen.length===0&&<div className="es"><div>✅</div>Keine Störungen</div>}<div className="tw"><table><thead><tr><th>Datum</th><th>Beschreibung</th><th>Von</th><th>Status</th><th>Lösung</th><th></th></tr></thead><tbody>{[...anlage.stoerungen].sort((a,b)=>new Date(b.datum)-new Date(a.datum)).map(s=><tr key={s.id}><td style={{whiteSpace:"nowrap"}}>{formatDate(s.datum)}</td><td style={{color:"var(--tx)"}}>{s.beschreibung}</td><td>{s.gemeldetVon||"–"}</td><td><span className={`ss ${s.status==="offen"?"so":s.status==="in_bearbeitung"?"si":"se"}`}>{s.status==="offen"?"Offen":s.status==="in_bearbeitung"?"In Bearb.":"Erledigt"}</span></td><td style={{fontSize:12}}>{s.loesung||"–"}</td><td>{s.status!=="erledigt"&&<button className="btn bg bs" onClick={()=>{const l=prompt("Lösung:");upd({stoerungen:anlage.stoerungen.map(x=>x.id===s.id?{...x,status:"erledigt",loesung:l||""}:x)})}}>✓</button>}</td></tr>)}</tbody></table></div></div>}
     {tab==="dokumente"&&<div><div style={{display:"flex",justifyContent:"flex-end",marginBottom:12}}><button className="btn bp bs" onClick={()=>setModal("dokument")}><I n="plus" s={13}/>Dokument</button></div>{anlage.dokumente.length===0&&<div className="es"><div>📄</div>Keine Dokumente</div>}{anlage.dokumente.map((d,i)=><div key={i} className="card" style={{display:"flex",alignItems:"center",gap:10,marginBottom:8}}><I n="file" s={16}/><div style={{flex:1}}><div style={{fontWeight:500}}>{d.name}</div><div style={{fontSize:11,color:"var(--tx3)"}}>{d.typ}</div></div><a href={d.url} target="_blank" rel="noreferrer" className="btn bg bs"><I n="link" s={12}/>Öffnen</a><button className="btn bd bs bi" onClick={()=>upd({dokumente:anlage.dokumente.filter((_,j)=>j!==i)})}><I n="trash" s={13}/></button></div>)}</div>}
     {tab==="kontakte"&&<div><div style={{display:"flex",justifyContent:"flex-end",marginBottom:12}}><button className="btn bp bs" onClick={()=>setModal("kontakt")}><I n="plus" s={13}/>Kontakt</button></div>{anlage.kontakte.length===0&&<div className="es"><div>📞</div>Keine Kontakte</div>}{anlage.kontakte.map((k,i)=><div key={i} className="card" style={{display:"flex",alignItems:"center",gap:12,marginBottom:8}}><div style={{flex:1}}><div style={{fontWeight:500}}>{k.name}</div><div style={{fontSize:12,color:"var(--tx3)",marginTop:2}}>{k.rolle}</div><div style={{display:"flex",gap:12,marginTop:6}}>{k.telefon&&<a href={`tel:${k.telefon}`} style={{fontSize:12,color:"var(--ac)",display:"flex",gap:4,alignItems:"center"}}><I n="phone" s={12}/>{k.telefon}</a>}{k.email&&<a href={`mailto:${k.email}`} style={{fontSize:12,color:"var(--ac)",display:"flex",gap:4,alignItems:"center"}}><I n="mail" s={12}/>{k.email}</a>}</div></div><button className="btn bd bs bi" onClick={()=>upd({kontakte:anlage.kontakte.filter((_,j)=>j!==i)})}><I n="trash" s={13}/></button></div>)}</div>}
     {modal==="wartung"&&<Modal title="Wartungsintervall" onClose={()=>setModal(null)}><WartungForm onSave={d=>{upd({wartungen:[...anlage.wartungen,{id:newId(),...d}]});setModal(null)}} onClose={()=>setModal(null)}/></Modal>}
+    {modal==="aufgabe"&&<Modal title="Aufgabe" onClose={()=>setModal(null)}><AufgabeForm onSave={d=>{upd({aufgaben:[...(anlage.aufgaben||[]),{id:newId(),...d}]});setModal(null)}} onClose={()=>setModal(null)}/></Modal>}
     {modal==="stoerung"&&<Modal title="Störung melden" onClose={()=>setModal(null)}><StoerungForm onSave={d=>{upd({stoerungen:[...anlage.stoerungen,{id:newId(),...d}]});setModal(null)}} onClose={()=>setModal(null)}/></Modal>}
     {modal==="dokument"&&<Modal title="Dokument" onClose={()=>setModal(null)}><DokumentForm onSave={d=>{upd({dokumente:[...anlage.dokumente,d]});setModal(null)}} onClose={()=>setModal(null)}/></Modal>}
     {modal==="kontakt"&&<Modal title="Kontakt" onClose={()=>setModal(null)}><KontaktForm onSave={d=>{upd({kontakte:[...anlage.kontakte,d]});setModal(null)}} onClose={()=>setModal(null)}/></Modal>}
+    {editWartung&&<Modal title="Wartung bearbeiten" onClose={()=>setEditWartung(null)}><WartungForm initial={editWartung} onSave={d=>{upd({wartungen:anlage.wartungen.map(x=>x.id===editWartung.id?{...editWartung,...d}:x)});setEditWartung(null)}} onClose={()=>setEditWartung(null)}/></Modal>}
+    {editAufgabe&&<Modal title="Aufgabe bearbeiten" onClose={()=>setEditAufgabe(null)}><AufgabeForm initial={editAufgabe} onSave={d=>{upd({aufgaben:anlage.aufgaben.map(x=>x.id===editAufgabe.id?{...editAufgabe,...d}:x)});setEditAufgabe(null)}} onClose={()=>setEditAufgabe(null)}/></Modal>}
     {editMode&&<Modal title="Anlage bearbeiten" onClose={()=>setEditMode(false)} mw={620}>
       <AnlageForm initial={anlage} anlagenKat={anlagenKat} onSave={d=>{onUpdate(d);setEditMode(false);}} onClose={()=>setEditMode(false)}/>
     </Modal>}
@@ -364,6 +404,7 @@ function MaschineDetail({ maschine, maschinenKat, onUpdate, onDelete }) {
   const [tab, setTab] = useState("info");
   const [modal, setModal] = useState(null);
   const [editMode, setEditMode] = useState(false);
+  const [editWartung, setEditWartung] = useState(null);
   function upd(c) { onUpdate({ ...maschine, ...c }); }
   return (<div>
     <Tabs active={tab} onChange={setTab} tabs={[{id:"info",label:"Info"},{id:"wartung",label:`Wartung (${maschine.wartungen.length})`},{id:"stoerung",label:`Störungen (${maschine.stoerungen.length})`},{id:"dokumente",label:`Dokumente (${maschine.dokumente.length})`}]}/>
@@ -377,12 +418,13 @@ function MaschineDetail({ maschine, maschinenKat, onUpdate, onDelete }) {
       <div className="fi" style={{marginBottom:12,maxWidth:200}}><label>Zustand</label><select value={maschine.zustand} onChange={e=>upd({zustand:e.target.value})}><option value="gut">✓ Gut</option><option value="wartung">⚠ Wartung nötig</option><option value="defekt">✗ Defekt</option></select></div>
       {maschine.beschreibung&&<p style={{color:"var(--tx2)",fontSize:13}}>{maschine.beschreibung}</p>}
     </div>}
-    {tab==="wartung"&&<div><div style={{display:"flex",justifyContent:"flex-end",marginBottom:12}}><button className="btn bp bs" onClick={()=>setModal("wartung")}><I n="plus" s={13}/>Wartungsintervall</button></div>{maschine.wartungen.length===0&&<div className="es"><div>🔧</div>Keine Wartungen</div>}{maschine.wartungen.map(w=><WartungCard key={w.id} w={w} onDone={()=>{const d=prompt("Datum:",new Date().toISOString().slice(0,10));if(d){const n=new Date(d);n.setMonth(n.getMonth()+w.intervallMonate);upd({wartungen:maschine.wartungen.map(x=>x.id===w.id?{...x,letzteDurchfuehrung:d,naechsteFaelligkeit:n.toISOString().slice(0,10)}:x)})}}} onDelete={()=>upd({wartungen:maschine.wartungen.filter(x=>x.id!==w.id)})}/>)}</div>}
+    {tab==="wartung"&&<div><div style={{display:"flex",justifyContent:"flex-end",marginBottom:12}}><button className="btn bp bs" onClick={()=>setModal("wartung")}><I n="plus" s={13}/>Wartungsintervall</button></div>{maschine.wartungen.length===0&&<div className="es"><div>🔧</div>Keine Wartungen</div>}{maschine.wartungen.map(w=><WartungCard key={w.id} w={w} onEdit={()=>setEditWartung(w)} onDone={()=>{const d=prompt("Datum:",new Date().toISOString().slice(0,10));if(d){const n=new Date(d);n.setMonth(n.getMonth()+w.intervallMonate);upd({wartungen:maschine.wartungen.map(x=>x.id===w.id?{...x,letzteDurchfuehrung:d,naechsteFaelligkeit:n.toISOString().slice(0,10)}:x)})}}} onDelete={()=>upd({wartungen:maschine.wartungen.filter(x=>x.id!==w.id)})}/>)}</div>}
     {tab==="stoerung"&&<div><div style={{display:"flex",justifyContent:"flex-end",marginBottom:12}}><button className="btn bp bs" onClick={()=>setModal("stoerung")}><I n="plus" s={13}/>Störung</button></div>{maschine.stoerungen.length===0&&<div className="es"><div>✅</div>Keine Störungen</div>}<div className="tw"><table><thead><tr><th>Datum</th><th>Beschreibung</th><th>Status</th><th>Lösung</th></tr></thead><tbody>{maschine.stoerungen.map(s=><tr key={s.id}><td>{formatDate(s.datum)}</td><td style={{color:"var(--tx)"}}>{s.beschreibung}</td><td><span className={`ss ${s.status==="offen"?"so":s.status==="in_bearbeitung"?"si":"se"}`}>{s.status==="offen"?"Offen":s.status==="in_bearbeitung"?"In Bearb.":"Erledigt"}</span></td><td style={{fontSize:12}}>{s.loesung||"–"}</td></tr>)}</tbody></table></div></div>}
     {tab==="dokumente"&&<div><div style={{display:"flex",justifyContent:"flex-end",marginBottom:12}}><button className="btn bp bs" onClick={()=>setModal("dokument")}><I n="plus" s={13}/>Dokument</button></div>{maschine.dokumente.length===0&&<div className="es"><div>📄</div>Keine Dokumente</div>}{maschine.dokumente.map((d,i)=><div key={i} className="card" style={{display:"flex",alignItems:"center",gap:10,marginBottom:8}}><I n="file" s={16}/><div style={{flex:1}}><div style={{fontWeight:500}}>{d.name}</div><div style={{fontSize:11,color:"var(--tx3)"}}>{d.typ}</div></div><a href={d.url} target="_blank" rel="noreferrer" className="btn bg bs"><I n="link" s={12}/>Öffnen</a><button className="btn bd bs bi" onClick={()=>upd({dokumente:maschine.dokumente.filter((_,j)=>j!==i)})}><I n="trash" s={13}/></button></div>)}</div>}
     {modal==="wartung"&&<Modal title="Wartungsintervall" onClose={()=>setModal(null)}><WartungForm onSave={d=>{upd({wartungen:[...maschine.wartungen,{id:newId(),...d}]});setModal(null)}} onClose={()=>setModal(null)}/></Modal>}
     {modal==="stoerung"&&<Modal title="Störung melden" onClose={()=>setModal(null)}><StoerungForm onSave={d=>{upd({stoerungen:[...maschine.stoerungen,{id:newId(),...d}]});setModal(null)}} onClose={()=>setModal(null)}/></Modal>}
     {modal==="dokument"&&<Modal title="Dokument" onClose={()=>setModal(null)}><DokumentForm onSave={d=>{upd({dokumente:[...maschine.dokumente,d]});setModal(null)}} onClose={()=>setModal(null)}/></Modal>}
+    {editWartung&&<Modal title="Wartung bearbeiten" onClose={()=>setEditWartung(null)}><WartungForm initial={editWartung} onSave={d=>{upd({wartungen:maschine.wartungen.map(x=>x.id===editWartung.id?{...editWartung,...d}:x)});setEditWartung(null)}} onClose={()=>setEditWartung(null)}/></Modal>}
     {editMode&&<Modal title="Maschine bearbeiten" onClose={()=>setEditMode(false)} mw={620}>
       <MaschineForm initial={maschine} maschinenKat={maschinenKat} onSave={d=>{onUpdate(d);setEditMode(false);}} onClose={()=>setEditMode(false)}/>
     </Modal>}
@@ -592,46 +634,56 @@ function EinmaligForm({ onSave, onClose }) {
 }
 
 // ─── DASHBOARD & ÜBERSICHTEN ──────────────────────────────────────────────────
-function Dashboard({ anlagen, maschinen, einmaligAufgaben, jahresaufgaben, anlagenKat, maschinenKat }) {
-  const aw=[...anlagen.flatMap(a=>a.wartungen.map(w=>({...w,q:a.name}))),...maschinen.flatMap(m=>m.wartungen.map(w=>({...w,q:m.name})))];
-  const as=[...anlagen.flatMap(a=>a.stoerungen.map(s=>({...s,q:a.name}))),...maschinen.flatMap(m=>m.stoerungen.map(s=>({...s,q:m.name})))];
+function Dashboard({ anlagen, maschinen, einmaligAufgaben, jahresaufgaben, anlagenKat, maschinenKat, onSelectAnlage, onSelectMaschine, onNavigate }) {
+  const aw=[...anlagen.flatMap(a=>a.wartungen.map(w=>({...w,q:a.name,qid:a.id,typ:"a"}))),...maschinen.flatMap(m=>m.wartungen.map(w=>({...w,q:m.name,qid:m.id,typ:"m"})))];
+  const as=[...anlagen.flatMap(a=>a.stoerungen.map(s=>({...s,q:a.name,qid:a.id,typ:"a"}))),...maschinen.flatMap(m=>m.stoerungen.map(s=>({...s,q:m.name,qid:m.id,typ:"m"})))];
   const ue=aw.filter(w=>tageFaellig(w.naechsteFaelligkeit)<0);
   const bf=aw.filter(w=>{const t=tageFaellig(w.naechsteFaelligkeit);return t>=0&&t<=30;});
   const os=as.filter(s=>s.status!=="erledigt");
-  const nw=[...aw].filter(w=>w.naechsteFaelligkeit).sort((a,b)=>new Date(a.naechsteFaelligkeit)-new Date(b.naechsteFaelligkeit)).slice(0,6);
+  const nw=[...aw].filter(w=>w.letzteDurchfuehrung).sort((a,b)=>{const nd_a=berechneNaechsteWartung(a.letzteDurchfuehrung,a.intervallMonate);const nd_b=berechneNaechsteWartung(b.letzteDurchfuehrung,b.intervallMonate);return new Date(nd_a||0)-new Date(nd_b||0);}).slice(0,6);
   const offeneA=einmaligAufgaben.filter(t=>t.status!=="erledigt");
   const baldA=offeneA.filter(t=>t.faelligkeitDatum&&tageFaellig(t.faelligkeitDatum)<=7).slice(0,4);
   const totalJ=jahresaufgaben.flatMap(g=>g.aufgaben).length;
   const erlJ=jahresaufgaben.flatMap(g=>g.aufgaben).filter(a=>a.erledigt).length;
   return (<div>
-    <div className="sg">{[{v:anlagen.length+maschinen.length,l:"Objekte gesamt",c:null},{v:ue.length,l:"Wartungen überfällig",c:ue.length>0?"var(--rd)":"var(--gr)"},{v:os.length,l:"Offene Störungen",c:os.length>0?"var(--rd)":"var(--gr)"},{v:offeneA.length,l:"Offene Aufgaben",c:offeneA.length>0?"var(--am)":"var(--gr)"}].map(s=><div key={s.l} className="sc"><div className="sv" style={{color:s.c||"var(--tx)"}}>{s.v}</div><div className="sl">{s.l}</div></div>)}</div>
+    <div className="sg">{[{v:anlagen.length+maschinen.length,l:"Objekte gesamt",c:null,nav:"anlagen"},{v:ue.length,l:"Wartungen überfällig",c:ue.length>0?"var(--rd)":"var(--gr)",nav:"wartungen"},{v:os.length,l:"Offene Störungen",c:os.length>0?"var(--rd)":"var(--gr)",nav:"stoerungen"},{v:offeneA.length,l:"Offene Aufgaben",c:offeneA.length>0?"var(--am)":"var(--gr)",nav:"aufgaben"}].map(s=><div key={s.l} className="sc" onClick={()=>onNavigate(s.nav)} style={{cursor:"pointer",transition:"all .15s",borderColor:"#c8d9eb"}} onMouseEnter={e=>{e.currentTarget.style.borderColor="#1565c0";e.currentTarget.style.transform="translateY(-2px)";}} onMouseLeave={e=>{e.currentTarget.style.borderColor="#c8d9eb";e.currentTarget.style.transform="translateY(0)"}}><div className="sv" style={{color:s.c||"var(--tx)"}}>{s.v}</div><div className="sl">{s.l}</div></div>)}</div>
     <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:16}}>
       <div>
         <div className="st">Nächste Wartungen</div>
-        <div className="card">{nw.length===0&&<div className="es"><div>✅</div>Keine geplant</div>}{nw.map(w=>{const t=tageFaellig(w.naechsteFaelligkeit);return<div key={w.id} className="wr"><span className="dot" style={{background:statusColor(t),boxShadow:`0 0 5px ${statusColor(t)}`}}/><div className="wi"><div className="wn">{w.bezeichnung}</div><div className="wm">{w.q}</div></div><span style={{fontSize:11,color:statusColor(t),whiteSpace:"nowrap"}}>{statusLabel(t)}</span></div>;})}</div>
+        <div className="card">{nw.length===0&&<div className="es"><div>✅</div>Keine geplant</div>}{nw.map(w=>{const naechsteWartung=berechneNaechsteWartung(w.letzteDurchfuehrung,w.intervallMonate);const t=naechsteWartung?tageFaellig(naechsteWartung.toISOString().slice(0,10)):null;return<div key={w.id} className="wr" onClick={()=>{w.typ==="a"?onSelectAnlage(w.qid):onSelectMaschine(w.qid);}} style={{cursor:"pointer",transition:"background .15s"}} onMouseEnter={e=>e.currentTarget.style.background="var(--sf2)"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}><span className="dot" style={{background:statusColor(t),boxShadow:`0 0 5px ${statusColor(t)}`}}/><div className="wi"><div className="wn">{w.bezeichnung}</div><div className="wm">{w.q}</div></div>{naechsteWartung&&<span style={{fontSize:11,color:statusColor(t),whiteSpace:"nowrap"}}>{formatMonatJahr(naechsteWartung)}</span>}</div>;})}</div>
       </div>
       <div>
-        <div className="st">Aufgaben & Störungen</div>
-        <div className="card">
-          {os.slice(0,3).map(s=><div key={s.id} className="wr"><span className="dot dr"/><div className="wi"><div className="wn">{s.beschreibung.slice(0,45)}{s.beschreibung.length>45?"…":""}</div><div className="wm">{s.q}</div></div></div>)}
-          {baldA.map(t=>{const tage=tageFaellig(t.faelligkeitDatum);return<div key={t.id} className="wr"><span className="dot" style={{background:statusColor(tage)}}/><div className="wi"><div className="wn">{t.titel}</div><div className="wm">{t.kategorie}</div></div><span style={{fontSize:11,color:statusColor(tage),whiteSpace:"nowrap"}}>{statusLabel(tage)}</span></div>;})}
-          {os.length===0&&offeneA.length===0&&<div className="es"><div>✅</div>Alles erledigt</div>}
-          {totalJ>0&&<div style={{marginTop:12,paddingTop:12,borderTop:"1px solid var(--bd)"}}><div style={{fontSize:12,color:"var(--tx2)",marginBottom:6}}>Jahresaufgaben {erlJ}/{totalJ}</div><div className="progress-bar"><div className="progress-fill" style={{width:`${Math.round(erlJ/totalJ*100)}%`}}/></div></div>}
-        </div>
+        <div className="st">Arbeiten Platzwart</div>
+        <div className="card">{anlagen.flatMap(a=>a.aufgaben?.filter(au=>au.intervallMonate).map(au=>({...au,anlageName:a.name,anlageId:a.id}))||[]).sort((a,b)=>{const nd_a=berechneNaechsteWartung(a.letzteDurchfuehrung,a.intervallMonate);const nd_b=berechneNaechsteWartung(b.letzteDurchfuehrung,b.intervallMonate);return(tageFaellig(nd_a?.toISOString().slice(0,10))??9999)-(tageFaellig(nd_b?.toISOString().slice(0,10))??9999);}).slice(0,4).map(au=>{const nd=berechneNaechsteWartung(au.letzteDurchfuehrung,au.intervallMonate);const t=nd?tageFaellig(nd.toISOString().slice(0,10)):null;return<div key={au.id} className="wr" onClick={()=>onSelectAnlage(au.anlageId)} style={{cursor:"pointer",transition:"background .15s"}} onMouseEnter={e=>e.currentTarget.style.background="var(--sf2)"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}><span className="dot" style={{background:statusColor(t),boxShadow:`0 0 5px ${statusColor(t)}`}}/><div className="wi"><div className="wn">{au.titel}</div><div className="wm">{au.anlageName}</div></div>{nd&&<span style={{fontSize:11,color:statusColor(t),whiteSpace:"nowrap"}}>{formatMonatJahr(nd)}</span>}</div>;})}{anlagen.flatMap(a=>a.aufgaben?.filter(au=>au.intervallMonate)||[]).length===0&&<div className="es"><div>✓</div>Keine Aufgaben</div>}</div>
       </div>
     </div>
   </div>);
 }
 
-function WartungsUebersicht({ anlagen, maschinen, anlagenKat, maschinenKat }) {
-  const alle=[...anlagen.flatMap(a=>a.wartungen.map(w=>({...w,q:a.name,kat:a.kategorie,typ:"a"}))),...maschinen.flatMap(m=>m.wartungen.map(w=>({...w,q:m.name,kat:m.kategorie,typ:"m"})))].sort((a,b)=>(tageFaellig(a.naechsteFaelligkeit)??9999)-(tageFaellig(b.naechsteFaelligkeit)??9999));
-  return (<div className="card"><div className="tw"><table><thead><tr><th></th><th>Objekt</th><th>Wartung</th><th>Zuständig</th><th>Zuletzt</th><th>Nächste Fälligkeit</th></tr></thead><tbody>{alle.map(w=>{const t=tageFaellig(w.naechsteFaelligkeit);const ki=w.typ==="a"?anlagenKat.find(k=>k.id===w.kat):maschinenKat.find(k=>k.id===w.kat);return<tr key={w.id}><td><span className="dot" style={{background:statusColor(t)}}/></td><td><span style={{marginRight:6}}>{ki?.icon}</span>{w.q}</td><td style={{color:"var(--tx)"}}>{w.bezeichnung}</td><td>{w.zustaendig||"–"}</td><td>{formatDate(w.letzteDurchfuehrung)}</td><td><span style={{color:statusColor(t)}}>{formatDate(w.naechsteFaelligkeit)}</span><span style={{color:statusColor(t),fontSize:11,marginLeft:6}}>({statusLabel(t)})</span></td></tr>;})}</tbody></table></div></div>);
+function WartungsUebersicht({ anlagen, maschinen, anlagenKat, maschinenKat, onSelectAnlage, onSelectMaschine }) {
+  const alle=[...anlagen.flatMap(a=>a.wartungen.map(w=>({...w,q:a.name,qid:a.id,kat:a.kategorie,typ:"a"}))),...maschinen.flatMap(m=>m.wartungen.map(w=>({...w,q:m.name,qid:m.id,kat:m.kategorie,typ:"m"})))].sort((a,b)=>{const nd_a=berechneNaechsteWartung(a.letzteDurchfuehrung,a.intervallMonate);const nd_b=berechneNaechsteWartung(b.letzteDurchfuehrung,b.intervallMonate);return(tageFaellig(nd_a?.toISOString().slice(0,10))??9999)-(tageFaellig(nd_b?.toISOString().slice(0,10))??9999);});
+  return (<div className="card"><div className="tw"><table><thead><tr><th></th><th>Objekt</th><th>Wartung</th><th>Zuständig</th><th>Zuletzt</th><th>Nächste Fälligkeit</th></tr></thead><tbody>{alle.map(w=>{const naechsteWartung=berechneNaechsteWartung(w.letzteDurchfuehrung,w.intervallMonate);const t=naechsteWartung?tageFaellig(naechsteWartung.toISOString().slice(0,10)):null;const ki=w.typ==="a"?anlagenKat.find(k=>k.id===w.kat):maschinenKat.find(k=>k.id===w.kat);return<tr key={w.id} onClick={()=>{w.typ==="a"?onSelectAnlage(w.qid):onSelectMaschine(w.qid);}} style={{cursor:"pointer",transition:"background .15s"}} onMouseEnter={e=>e.currentTarget.style.background="var(--sf2)"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}><td><span className="dot" style={{background:statusColor(t)}}/></td><td><span style={{marginRight:6}}>{ki?.icon}</span>{w.q}</td><td style={{color:"var(--tx)"}}>{w.bezeichnung}</td><td>{w.zustaendig||"–"}</td><td>{formatDate(w.letzteDurchfuehrung)}</td><td>{naechsteWartung&&<><span style={{color:statusColor(t)}}>{formatMonatJahr(naechsteWartung)}</span><span style={{color:statusColor(t),fontSize:11,marginLeft:6}}>({statusLabel(t)})</span></>}</td></tr>;})}</tbody></table></div></div>);
 }
 
-function StoerungsUebersicht({ anlagen, maschinen, anlagenKat }) {
-  const alle=[...anlagen.flatMap(a=>a.stoerungen.map(s=>({...s,q:a.name,kat:a.kategorie}))),...maschinen.flatMap(m=>m.stoerungen.map(s=>({...s,q:m.name})))].sort((a,b)=>new Date(b.datum)-new Date(a.datum));
+function ArbeitenPlatzwart({ anlagen, onSelectAnlage }) {
+  const alle = anlagen.flatMap(a => (a.aufgaben || []).map(au => ({ ...au, anlageName: a.name, anlageId: a.id, anlageSel: a })));
+  const mitIntervall = alle.filter(a => a.intervallMonate);
+  const sorted = mitIntervall.sort((a, b) => {
+    const nd_a = berechneNaechsteWartung(a.letzteDurchfuehrung, a.intervallMonate);
+    const nd_b = berechneNaechsteWartung(b.letzteDurchfuehrung, b.intervallMonate);
+    return (tageFaellig(nd_a?.toISOString().slice(0, 10)) ?? 9999) - (tageFaellig(nd_b?.toISOString().slice(0, 10)) ?? 9999);
+  });
+  return (<div className="card"><div className="tw"><table><thead><tr><th></th><th>Aufgabe</th><th>Anlage</th><th>Zuständig</th><th>Zuletzt</th><th>Nächste Ausführung</th></tr></thead><tbody>{sorted.map(a => {
+    const naechste = berechneNaechsteWartung(a.letzteDurchfuehrung, a.intervallMonate);
+    const t = naechste ? tageFaellig(naechste.toISOString().slice(0, 10)) : null;
+    return <tr key={a.id} onClick={() => onSelectAnlage(a.anlageId)} style={{ cursor: "pointer", transition: "background .15s" }} onMouseEnter={e => e.currentTarget.style.background = "var(--sf2)"} onMouseLeave={e => e.currentTarget.style.background = "transparent"}><td><span className="dot" style={{ background: statusColor(t) }} /></td><td style={{ color: "var(--tx)" }}>{a.titel}</td><td>{a.anlageName}</td><td>{a.zustaendig || "–"}</td><td>{formatDate(a.letzteDurchfuehrung)}</td><td>{naechste && <><span style={{ color: statusColor(t) }}>{formatMonatJahr(naechste)}</span><span style={{ color: statusColor(t), fontSize: 11, marginLeft: 6 }}>({statusLabel(t)})</span></>}</td></tr>;
+  })}</tbody></table></div></div>);
+}
+
+function StoerungsUebersicht({ anlagen, maschinen, anlagenKat, onSelectAnlage, onSelectMaschine }) {
+  const alle=[...anlagen.flatMap(a=>a.stoerungen.map(s=>({...s,q:a.name,qid:a.id,kat:a.kategorie,typ:"a"}))),...maschinen.flatMap(m=>m.stoerungen.map(s=>({...s,q:m.name,qid:m.id,typ:"m"})))].sort((a,b)=>new Date(b.datum)-new Date(a.datum));
   const of=alle.filter(s=>s.status!=="erledigt").length;
-  return (<div>{of>0&&<div style={{background:"#fef2f2",border:"1px solid #fca5a5",borderRadius:"var(--r)",padding:"12px 16px",marginBottom:16,display:"flex",gap:10,alignItems:"center"}}><I n="warning" s={16}/><span style={{color:"var(--rd)",fontSize:13}}>{of} offene Störung{of>1?"en":""}</span></div>}<div className="card"><div className="tw"><table><thead><tr><th>Datum</th><th>Objekt</th><th>Beschreibung</th><th>Status</th><th>Lösung</th></tr></thead><tbody>{alle.map(s=>{const ki=anlagenKat.find(k=>k.id===s.kat);return<tr key={s.id}><td style={{whiteSpace:"nowrap"}}>{formatDate(s.datum)}</td><td><span style={{marginRight:6}}>{ki?.icon||"🔧"}</span>{s.q}</td><td style={{color:"var(--tx)"}}>{s.beschreibung}</td><td><span className={`ss ${s.status==="offen"?"so":s.status==="in_bearbeitung"?"si":"se"}`}>{s.status==="offen"?"Offen":s.status==="in_bearbeitung"?"In Bearb.":"Erledigt"}</span></td><td style={{fontSize:12}}>{s.loesung||"–"}</td></tr>;})}</tbody></table></div></div></div>);
+  return (<div>{of>0&&<div style={{background:"#fef2f2",border:"1px solid #fca5a5",borderRadius:"var(--r)",padding:"12px 16px",marginBottom:16,display:"flex",gap:10,alignItems:"center"}}><I n="warning" s={16}/><span style={{color:"var(--rd)",fontSize:13}}>{of} offene Störung{of>1?"en":""}</span></div>}<div className="card"><div className="tw"><table><thead><tr><th>Datum</th><th>Objekt</th><th>Beschreibung</th><th>Status</th><th>Lösung</th></tr></thead><tbody>{alle.map(s=>{const ki=anlagenKat.find(k=>k.id===s.kat);return<tr key={s.id} onClick={()=>{s.typ==="a"?onSelectAnlage(s.qid):onSelectMaschine(s.qid);}} style={{cursor:"pointer",transition:"background .15s"}} onMouseEnter={e=>e.currentTarget.style.background="var(--sf2)"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}><td style={{whiteSpace:"nowrap"}}>{formatDate(s.datum)}</td><td><span style={{marginRight:6}}>{ki?.icon||"🔧"}</span>{s.q}</td><td style={{color:"var(--tx)"}}>{s.beschreibung}</td><td><span className={`ss ${s.status==="offen"?"so":s.status==="in_bearbeitung"?"si":"se"}`}>{s.status==="offen"?"Offen":s.status==="in_bearbeitung"?"In Bearb.":"Erledigt"}</span></td><td style={{fontSize:12}}>{s.loesung||"–"}</td></tr>;})}</tbody></table></div></div></div>);
 }
 
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
@@ -651,6 +703,7 @@ function MainApp({ onLogout }) {
   const [search, setSearch] = useState("");
   const [addAnlage, setAddAnlage] = useState(false);
   const [addMaschine, setAddMaschine] = useState(false);
+  const [mobileNavOpen, setMobileNavOpen] = useState(false);
 
   useEffect(() => {
     let loaded = { a:false, t:false, m:false, j:false, e:false };
@@ -703,11 +756,11 @@ function MainApp({ onLogout }) {
   const ueCount = [...anlagen,...maschinen].flatMap(x=>x.wartungen||[]).filter(w=>tageFaellig(w.naechsteFaelligkeit)<0).length;
   const osCount = [...anlagen,...maschinen].flatMap(x=>x.stoerungen||[]).filter(s=>s.status!=="erledigt").length;
   const aufgCount = einmaligAufgaben.filter(t=>t.status!=="erledigt").length;
-  const filterKat = ["dashboard","anlagen","maschinen","wartungen","stoerungen","telefon","aufgaben"].includes(view) ? null : view;
+  const filterKat = ["dashboard","anlagen","maschinen","wartungen","arbeiten","stoerungen","telefon","aufgaben"].includes(view) ? null : view;
   const isAnlagenKat = filterKat && anlagenKat.find(k=>k.id===filterKat);
   const nav = v => { setView(v); setSelAnlage(null); setSelMaschine(null); setSearch(""); };
 
-  let title = view==="dashboard"?"Dashboard":view==="anlagen"?"Technische Anlagen":view==="maschinen"?"Maschinen & Geräte":view==="wartungen"?"Wartungsübersicht":view==="stoerungen"?"Störungsprotokoll":view==="telefon"?"Telefonliste":view==="aufgaben"?"Aufgaben & ToDos":isAnlagenKat?`${isAnlagenKat.icon} ${isAnlagenKat.label}`:"";
+  let title = view==="dashboard"?"Dashboard":view==="anlagen"?"Technische Anlagen":view==="maschinen"?"Maschinen & Geräte":view==="arbeiten"?"Arbeiten Platzwart":view==="wartungen"?"Wartungsübersicht":view==="stoerungen"?"Störungsprotokoll":view==="telefon"?"Telefonliste":view==="aufgaben"?"Allgemeine ToDos":isAnlagenKat?`${isAnlagenKat.icon} ${isAnlagenKat.label}`:"";
   if(foundAnlage) title = `${anlagenKat.find(k=>k.id===foundAnlage.kategorie)?.icon||""} ${foundAnlage.name}`;
   if(foundMaschine) title = `${maschinenKat.find(k=>k.id===foundMaschine.kategorie)?.icon||""} ${foundMaschine.name}`;
 
@@ -717,29 +770,50 @@ function MainApp({ onLogout }) {
     <><style>{css}</style>
     <div className="app">
       <div className="sidebar">
-        <div className="s-logo">HTV <span>Anlagen</span><small>Helmstedter TV</small></div>
+        <div className="s-logo"><img src={htvLogo} alt="HTV" style={{width:44,height:44,objectFit:'contain',marginRight:10,flexShrink:0}}/>HTV <span>Anlagen</span><small>Helmstedter TV</small></div>
         <div style={{padding:"8px 4px"}}>
           <div className="s-sec">Übersicht</div>
-          {[{id:"dashboard",icon:<I n="dashboard" s={14}/>,l:"Dashboard"},{id:"wartungen",icon:<I n="tool" s={14}/>,l:"Wartungen",b:ueCount},{id:"stoerungen",icon:<I n="alert" s={14}/>,l:"Störungen",b:osCount},{id:"aufgaben",icon:<I n="list" s={14}/>,l:"Aufgaben",b:aufgCount}].map(x=><div key={x.id} className={`s-item ${view===x.id?"on":""}`} onClick={()=>nav(x.id)}>{x.icon}{x.l}{x.b>0&&<span className="bdg">{x.b}</span>}</div>)}
+          {[{id:"dashboard",icon:<I n="dashboard" s={14}/>,l:"Dashboard"},{id:"arbeiten",icon:<I n="tool" s={14}/>,l:"Arbeiten Platzwart",b:anlagen.flatMap(a=>a.aufgaben?.filter(au=>au.intervallMonate)||[]).length},{id:"stoerungen",icon:<I n="alert" s={14}/>,l:"Störungen",b:osCount},{id:"aufgaben",icon:<I n="list" s={14}/>,l:"Allgemeine ToDos",b:aufgCount}].map(x=><div key={x.id} className={`s-item ${view===x.id?"on":""}`} onClick={()=>nav(x.id)}>{x.icon}{x.l}{x.b>0&&<span className="bdg">{x.b}</span>}</div>)}
           <div className="s-sec" style={{marginTop:8}}>Anlagen</div>
           <div className={`s-item ${view==="anlagen"?"on":""}`} onClick={()=>nav("anlagen")}><I n="tool" s={14}/>Alle Anlagen</div>
           {anlagenKat.map(k=>{const c=anlagen.filter(a=>a.kategorie===k.id).length;return(<div key={k.id} className={`s-item ${view===k.id?"on":""}`} onClick={()=>nav(k.id)}><span style={{fontSize:14}}>{k.icon}</span><span style={{flex:1,fontSize:12}}>{k.label}</span>{c>0&&<span style={{fontSize:11,color:view===k.id?"rgba(255,255,255,.7)":"rgba(255,255,255,.4)"}}>{c}</span>}</div>);})}
           <div className="s-sec" style={{marginTop:8}}>Geräte & Kontakte</div>
           <div className={`s-item ${view==="maschinen"?"on":""}`} onClick={()=>nav("maschinen")}><I n="box" s={14}/>Maschinen & Geräte<span style={{fontSize:11,color:"rgba(255,255,255,.4)"}}>{maschinen.length}</span></div>
           <div className={`s-item ${view==="telefon"?"on":""}`} onClick={()=>nav("telefon")}><I n="users" s={14}/>Telefonliste<span style={{fontSize:11,color:"rgba(255,255,255,.4)"}}>{telefon.length}</span></div>
+          <div style={{flex:1}}/>
+          <a href="https://helmstedtertv.github.io/Htv-vorstands-app/" style={{display:"flex",alignItems:"center",gap:8,padding:"10px 14px",margin:"8px 4px",borderRadius:6,color:"rgba(255,255,255,.5)",fontSize:12,textDecoration:"none",borderTop:"1px solid rgba(255,255,255,.08)",transition:"color .15s"}} onMouseEnter={e=>e.currentTarget.style.color="#fff"} onMouseLeave={e=>e.currentTarget.style.color="rgba(255,255,255,.5)"}><I n="back" s={13}/>Vorstands-App</a>
         </div>
       </div>
       <div className="main">
+        <div className="mob-hd">
+          {(foundAnlage||foundMaschine) ? (
+            <button className="mob-back-btn" onClick={()=>{setSelAnlage(null);setSelMaschine(null);}}><I n="back" s={18}/></button>
+          ) : (
+            <button className="mob-menu-btn" onClick={()=>setMobileNavOpen(true)}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+          )}
+          <div style={{flex:1,minWidth:0}}>
+            <div style={{fontWeight:700,fontSize:15,color:'#fff',lineHeight:1.2}}>
+              {(foundAnlage||foundMaschine)?<span style={{fontSize:13}}>{title}</span>:<>HTV <span style={{color:'#7eb3e0'}}>Anlagen</span></>}
+            </div>
+            {(foundAnlage||foundMaschine)&&<div style={{fontSize:11,color:'rgba(255,255,255,.55)',marginTop:2}}>📍 {(foundAnlage||foundMaschine).standort}</div>}
+            {!(foundAnlage||foundMaschine)&&<div style={{fontSize:10,color:'rgba(255,255,255,.45)',marginTop:1}}>Helmstedter TV</div>}
+          </div>
+          {!(foundAnlage||foundMaschine)&&<img src={htvLogo} alt="HTV" style={{height:38,width:38,objectFit:'contain',flexShrink:0,opacity:.92}}/>}
+          {!(foundAnlage||foundMaschine)&&(ueCount+osCount)>0&&<span style={{background:'#dc2626',color:'#fff',fontSize:11,padding:'2px 7px',borderRadius:10,fontWeight:600,flexShrink:0}}>{ueCount+osCount}</span>}
+        </div>
         <div className="topbar">
           {(foundAnlage||foundMaschine)?(<><div className="t-back" onClick={()=>{setSelAnlage(null);setSelMaschine(null);}}><I n="back" s={14}/>Zurück</div><h1>{title}</h1><span style={{fontSize:12,color:"var(--tx3)"}}>📍 {(foundAnlage||foundMaschine).standort}</span></>
-          ):(<><h1>{title}</h1>{(view==="anlagen"||isAnlagenKat)&&<div className="sb"><I n="search" s={14}/><input placeholder="Suchen…" value={search} onChange={e=>setSearch(e.target.value)}/></div>}<div className="sync-badge"><I n="sync" s={11}/>Firestore</div><button className="btn bg bs" onClick={()=>setShowKatManager(true)}><I n="settings" s={13}/>Kategorien</button></>)}
+          ):(<><h1>{title}</h1>{(view==="anlagen"||isAnlagenKat)&&<div className="sb"><I n="search" s={14}/><input placeholder="Suchen…" value={search} onChange={e=>setSearch(e.target.value)}/></div>}{view!=="arbeiten"&&<div className="sync-badge"><I n="sync" s={11}/>Firestore</div>}{view!=="arbeiten"&&<button className="btn bg bs" onClick={()=>setShowKatManager(true)}><I n="settings" s={13}/>Kategorien</button>}</>)}
         </div>
         <div className="content">
           {foundAnlage?<AnlageDetail anlage={foundAnlage} anlagenKat={anlagenKat} onUpdate={saveAnlage} onDelete={delAnlage}/>
           :foundMaschine?<MaschineDetail maschine={foundMaschine} maschinenKat={maschinenKat} onUpdate={saveMaschine} onDelete={delMaschine}/>
-          :view==="dashboard"?<Dashboard anlagen={anlagen} maschinen={maschinen} einmaligAufgaben={einmaligAufgaben} jahresaufgaben={jahresaufgaben} anlagenKat={anlagenKat} maschinenKat={maschinenKat}/>
-          :view==="wartungen"?<WartungsUebersicht anlagen={anlagen} maschinen={maschinen} anlagenKat={anlagenKat} maschinenKat={maschinenKat}/>
-          :view==="stoerungen"?<StoerungsUebersicht anlagen={anlagen} maschinen={maschinen} anlagenKat={anlagenKat}/>
+          :view==="dashboard"?<Dashboard anlagen={anlagen} maschinen={maschinen} einmaligAufgaben={einmaligAufgaben} jahresaufgaben={jahresaufgaben} anlagenKat={anlagenKat} maschinenKat={maschinenKat} onSelectAnlage={setSelAnlage} onSelectMaschine={setSelMaschine} onNavigate={nav}/>
+          :view==="arbeiten"?<ArbeitenPlatzwart anlagen={anlagen} onSelectAnlage={setSelAnlage}/>
+          :view==="wartungen"?<WartungsUebersicht anlagen={anlagen} maschinen={maschinen} anlagenKat={anlagenKat} maschinenKat={maschinenKat} onSelectAnlage={setSelAnlage} onSelectMaschine={setSelMaschine}/>
+          :view==="stoerungen"?<StoerungsUebersicht anlagen={anlagen} maschinen={maschinen} anlagenKat={anlagenKat} onSelectAnlage={setSelAnlage} onSelectMaschine={setSelMaschine}/>
           :view==="telefon"?<Telefonliste kontakte={telefon} onAdd={addTelefon} onUpdate={updateTelefon} onDelete={deleteTelefon}/>
           :view==="aufgaben"?<Aufgaben jahresaufgaben={jahresaufgaben} einmalig={einmaligAufgaben} onUpdateJahres={saveJahresaufgaben} onAddEinmalig={addEinmalig} onUpdateEinmalig={updateEinmalig} onDeleteEinmalig={deleteEinmalig}/>
           :view==="maschinen"?<MaschinenListe maschinen={maschinen} maschinenKat={maschinenKat} onSelect={setSelMaschine} onAdd={()=>setAddMaschine(true)}/>
@@ -747,6 +821,47 @@ function MainApp({ onLogout }) {
         </div>
       </div>
     </div>
+    {mobileNavOpen&&<div className="mob-nav-ov">
+      <div className="mob-nav-hd">
+        <div style={{display:'flex',alignItems:'center',gap:12}}><img src={htvLogo} alt="HTV" style={{height:48,width:48,objectFit:'contain'}}/><div><div style={{fontWeight:700,fontSize:18,color:'#fff'}}>HTV <span style={{color:'#7eb3e0'}}>Anlagen</span></div><div style={{fontSize:12,color:'rgba(255,255,255,.45)',marginTop:3}}>Helmstedter TV</div></div></div>
+        <button style={{background:'rgba(255,255,255,.1)',border:'none',color:'#fff',borderRadius:8,width:40,height:40,display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer',fontSize:22}} onClick={()=>setMobileNavOpen(false)}>×</button>
+      </div>
+      <div className="mob-nav-sec">Übersicht</div>
+      <div className="mob-nav-grid">
+        {[{id:'dashboard',icon:'📊',label:'Dashboard'},{id:'arbeiten',icon:'🔧',label:'Arbeiten Platzwart',b:anlagen.flatMap(a=>a.aufgaben?.filter(au=>au.intervallMonate)||[]).length},{id:'stoerungen',icon:'⚠️',label:'Störungen',b:osCount},{id:'aufgaben',icon:'📋',label:'Allgemeine ToDos',b:aufgCount}].map(x=>(
+          <div key={x.id} className={`mob-nav-card${view===x.id?' mnc-on':''}`} onClick={()=>{nav(x.id);setMobileNavOpen(false);}}>
+            <span style={{fontSize:26}}>{x.icon}</span>
+            <span style={{color:'#fff',fontSize:13,fontWeight:500}}>{x.label}</span>
+            {x.b>0&&<span style={{background:'#dc2626',color:'#fff',fontSize:10,padding:'1px 6px',borderRadius:10,fontWeight:600}}>{x.b}</span>}
+          </div>
+        ))}
+      </div>
+      <div className="mob-nav-sec">Anlagen</div>
+      <div className="mob-nav-grid">
+        {[{id:'anlagen',icon:'⚙️',label:'Alle Anlagen',count:anlagen.length},...anlagenKat.map(k=>({id:k.id,icon:k.icon,label:k.label,count:anlagen.filter(a=>a.kategorie===k.id).length}))].map(x=>(
+          <div key={x.id} className={`mob-nav-card${view===x.id?' mnc-on':''}`} onClick={()=>{nav(x.id);setMobileNavOpen(false);}}>
+            <span style={{fontSize:26}}>{x.icon}</span>
+            <span style={{color:'#fff',fontSize:12,fontWeight:500,lineHeight:1.3}}>{x.label}</span>
+            {x.count>0&&<span style={{color:'rgba(255,255,255,.45)',fontSize:11}}>{x.count}</span>}
+          </div>
+        ))}
+      </div>
+      <div className="mob-nav-sec">Geräte & Kontakte</div>
+      <div className="mob-nav-grid" style={{paddingBottom:16}}>
+        {[{id:'maschinen',icon:'📦',label:'Maschinen & Geräte',count:maschinen.length},{id:'telefon',icon:'👥',label:'Telefonliste',count:telefon.length}].map(x=>(
+          <div key={x.id} className={`mob-nav-card${view===x.id?' mnc-on':''}`} onClick={()=>{nav(x.id);setMobileNavOpen(false);}}>
+            <span style={{fontSize:26}}>{x.icon}</span>
+            <span style={{color:'#fff',fontSize:12,fontWeight:500}}>{x.label}</span>
+            {x.count>0&&<span style={{color:'rgba(255,255,255,.45)',fontSize:11}}>{x.count}</span>}
+          </div>
+        ))}
+      </div>
+      <div style={{padding:'0 16px 32px'}}>
+        <a href="https://helmstedtertv.github.io/Htv-vorstands-app/" style={{display:'flex',alignItems:'center',justifyContent:'center',gap:8,padding:'12px',borderRadius:8,color:'rgba(255,255,255,.55)',fontSize:13,textDecoration:'none',border:'1px solid rgba(255,255,255,.12)',background:'rgba(255,255,255,.05)'}}>
+          <I n="back" s={14}/>Zurück zur Vorstands-App
+        </a>
+      </div>
+    </div>}
     {showKatManager&&<KategorieManager anlagenKat={anlagenKat} maschinenKat={maschinenKat} onSave={saveKategorien} onClose={()=>setShowKatManager(false)}/>}
     {addAnlage&&<Modal title="Neue Anlage" onClose={()=>setAddAnlage(false)} mw={620}><AnlageForm anlagenKat={anlagenKat} onSave={d=>{saveAnlage(d);setAddAnlage(false);}} onClose={()=>setAddAnlage(false)}/></Modal>}
     {addMaschine&&<Modal title="Neue Maschine / Gerät" onClose={()=>setAddMaschine(false)} mw={620}><MaschineForm maschinenKat={maschinenKat} onSave={d=>{saveMaschine(d);setAddMaschine(false);}} onClose={()=>setAddMaschine(false)}/></Modal>}

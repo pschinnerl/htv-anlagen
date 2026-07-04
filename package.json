@@ -1,12 +1,12 @@
 {
-"homepage": "https://pschinnerl.github.io/htv-anlagen",  
+"homepage": "https://helmstedtertv.github.io/htv-anlagen",
 "name": "htv-anlagen",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "deploy": "npm run build && gh-pages -d dist",
+    "deploy": "npm run build && gh-pages -d dist -r https://github.com/helmstedtertv/htv-anlagen.git",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
